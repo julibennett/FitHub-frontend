@@ -15,3 +15,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@import url('https://fonts.cdnfonts.com/css/athletic');
+
+.navTitle{
+  font-family: 'Athletic', sans-serif;
+  font-size: 3em;                                             
+}
+
+.navLinks{
+  font-family: 'Athletic', sans-serif;
+  font-size: 1.5em;
+}

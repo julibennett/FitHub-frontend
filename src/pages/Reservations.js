@@ -1,11 +1,11 @@
 import { useParams, useNavigate } from "react-router-dom"
 
-const Reservations = ({props, reservation}) => {
+const Reservations = ({reservation}) => {
   const navigate = useNavigate()
   const { id } = useParams();
 
   const loaded = () => {
-    return props.reservation.map((workoutClass) => {
+    return reservation.map((workoutClass) => {
       return(
         <div key={workoutClass._id}>
           <h1>{workoutClass.studio}</h1>

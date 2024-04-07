@@ -52,7 +52,7 @@ const Review = (props) => {
 
     return (
         <Routes>
-            <Route path="/:id" element={<ClassShow review={review} />}/>
+            <Route path="/:id" element={<ClassShow review={review} createReview={createReview}/>}/>
             <Route path="/:id/review" element={<ClassShow review={review} createReview={createReview} />}/>
             <Route path="/:id/review/:reviewId" element={<ClassShow review={review} createReview={createReview} updateReview={updateReview} deleteReview={deleteReview}/>}/>
         </Routes>

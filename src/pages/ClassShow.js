@@ -60,6 +60,7 @@ const ClassShow = (props) => {
     console.log("adding review")
     e.preventDefault()
     props.createReview(form)
+    
   }
 
   return (

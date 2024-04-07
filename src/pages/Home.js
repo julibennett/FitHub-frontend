@@ -31,7 +31,7 @@ const Home = (props) => {
                         <p className="mb-4">{workoutClass.time}</p>
                         <p className="mb-4">{workoutClass.studio}</p>
 
-                        <Link to={`/${workoutClass._id}`} className="text-blue-500 hover:text-blue-600 transition-colors">View Details</Link>
+                        <Link to={`/class/${workoutClass._id}`} className="text-blue-500 hover:text-blue-600 transition-colors">View Details</Link>
                     </div>
                 ))}
             </div>

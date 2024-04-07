@@ -1,8 +1,8 @@
 
 import './App.css';
 import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from "react-router-dom"
-import Reservation from './components/Reservation'
+import { Route, Routes, useParams, useNavigate } from "react-router-dom"
+import Reservations from './pages/Reservations';
 import Home from './pages/Home';
 import ClassShow from './pages/ClassShow';
 import Login from './components/Login';
@@ -11,6 +11,7 @@ import Header from './components/Header';
 // import Profile from './pages/Profile';
 
 function App() {
+  //Login + Signup + Auth
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const[user, setUser] = useState(null)
   const navigate = useNavigate()
@@ -83,6 +84,90 @@ function App() {
     }
   }, [])
 
+  //Reviews
+  const { id } = useParams();
+
+  const [review, setReview] = useState(null)
+
+  const revURL = `http://localhost:4000/class/${id}/`
+
+  const getReview = async() => {
+      const response = await fetch(revURL)
+      const data = await response.json()
+      setReview(data.data)
+  }
+
+  const createReview = async (review) => {
+      const createdReview = await fetch(revURL + review, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(review)
+      })
+      getReview()
+      console.log(createdReview)
+  }
+
+  const updateReview = async (review, id) => {
+      await fetch(revURL + review, {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify()
+      })
+      getReview()
+  }
+
+  const deleteReview = async (review, id) => {
+      await fetch(revURL + review, {
+          method: "DELETE",
+      })
+      getReview()
+  }
+
+  useEffect(() => {
+      getReview()
+  }, [])
+
+  //Reservation
+  const resURL = "http://localhost:4000/reservation/"
+
+    const [reservation, setReservation] = useState(null)
+
+    const getReservation = async() => {
+        const response = await fetch(resURL)
+        const data = await response.json()
+        setReservation(data.data)
+        console.log(data.data)
+    }
+
+    const createReservation = async(classData) => {
+        console.log("creating res")
+        const createdRes = await fetch(resURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(classData)
+        })
+        navigate("/reservation")
+        getReservation()
+        console.log(createdRes)
+    }
+
+    const deleteReservation = async(id) => {
+        await fetch(resURL + id, {
+            method: "DELETE"
+        })
+        getReservation()
+    }
+
+    useEffect(() => {
+        getReservation()
+    }, []);
+
   return (
     <div className="App">
       {/* <h1 className="text-3xl font-bold underline">
@@ -92,15 +177,21 @@ function App() {
       <Routes>
         
         {/* Class Routes below*/}
-        <Route path="/" element={<Home />} />
-        <Route path="/:id" element={<ClassShow />}/>
+        <Route path="/class" element={<Home />} />
+        <Route path="/class/:id" element={<ClassShow />}/>
 
         {/* Login/Signup Routes below */}
         <Route path='/signup' element={<Signup handleSignUp={handleSignUp}/>}/>
-        <Route path='/login' element={<Login handleLogin={handleLogin}/>}/>   
+        <Route path='/login' element={<Login handleLogin={handleLogin}/>}/>  
+
+        {/*Review Route*/}
+        <Route path="/class/:id" element={<ClassShow review={review} createReview={createReview} updateReview={updateReview} deleteReview={deleteReview}/>}/> 
+
+        {/*Reservation Route*/}
+        <Route path="/reservation" element={<Reservations reservation={reservation} createReservation={createReservation} deleteReservation={deleteReservation}/>}/>
 
       </Routes>
-      <Reservation />
+
     </div>
   );
 }

@@ -64,12 +64,12 @@ const ClassShow = (props) => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1>{workoutClass.typeOfClass}</h1>
-      <p>{workoutClass.location}</p>
-      <p>{workoutClass.time}</p>
-      <p>{workoutClass.studio}</p>
-      <p>{workoutClass.instructor}</p>
+    <div className="container mx-auto p-4 max-w-md mx-auto mt-10 bg-white shadow-lg rounded-lg p-8">
+      <h1 className='coolFont text-2xl font-bold text-center mb-4'>{workoutClass.typeOfClass}</h1>
+        <p className="mb-2"><span className="font-semibold">Location:</span> {workoutClass.location}</p>
+        <p className="mb-2"><span className="font-semibold">Time:</span> {workoutClass.time}</p>
+        <p className="mb-2"><span className="font-semibold">Studio:</span> {workoutClass.studio}</p>
+        <p className="mb-2"><span className="font-semibold">Instructor:</span> {workoutClass.instructor}</p>
       {workoutClass.review && workoutClass.review.map((review, index) => (
       <p key={index}>{review}</p>
       ))}

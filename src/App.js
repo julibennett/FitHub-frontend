@@ -8,7 +8,7 @@ import ClassShow from './pages/ClassShow';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Header from './components/Header';
-// import Profile from './pages/Profile';
+import Footer from './components/Footer';
 
 function App() {
   //Login + Signup + Auth
@@ -191,7 +191,7 @@ function App() {
         <Route path="/reservation" element={<Reservations reservation={reservation} createReservation={createReservation} deleteReservation={deleteReservation}/>}/>
 
       </Routes>
-
+      <Footer />
     </div>
   );
 }

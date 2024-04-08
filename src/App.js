@@ -46,14 +46,14 @@ function App() {
     localStorage.setItem('authToken', data.token)
     setIsLoggedIn(true)
     await fetchUser(data.id)
-    navigate('/')  
+    navigate('/class')  
   }
 
   const handleLogout = () => {
     console.log("in handle log")
     localStorage.removeItem("authToken")
     setIsLoggedIn(false)
-    navigate("/")
+    navigate("/class")
   }
 
   const fetchUser = async (id) => {

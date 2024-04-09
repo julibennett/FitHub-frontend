@@ -2,13 +2,13 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useParams, useNavigate } from "react-router-dom"
-import Reservations from './pages/Reservations';
-import Home from './pages/Home';
-import ClassShow from './pages/ClassShow';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import ClassShow from './pages/ClassShow';
+import Reservations from './pages/Reservations';
 
 function App() {
   //Login + Signup + Auth
@@ -84,53 +84,6 @@ function App() {
     }
   }, [])
 
-  //Reviews
-  const { id } = useParams();
-
-  const [review, setReview] = useState(null)
-
-  const revURL = `http://localhost:4000/class/${id}/`
-
-  const getReview = async() => {
-      const response = await fetch(revURL)
-      const data = await response.json()
-      setReview(data.data)
-  }
-
-  const createReview = async (review) => {
-      const createdReview = await fetch(revURL + review, {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify(review)
-      })
-      getReview()
-      console.log(createdReview)
-  }
-
-  const updateReview = async (review, id) => {
-      await fetch(revURL + review, {
-          method: "PUT",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify()
-      })
-      getReview()
-  }
-
-  const deleteReview = async (review, id) => {
-      await fetch(revURL + review, {
-          method: "DELETE",
-      })
-      getReview()
-  }
-
-  useEffect(() => {
-      getReview()
-  }, [])
-
   //Reservation
   const resURL = "http://localhost:4000/reservation/"
 
@@ -175,17 +128,15 @@ function App() {
       </h1> */}
       <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} user={user}/>
       <Routes>
-        
-        {/* Class Routes below*/}
-        <Route path="/class" element={<Home />} />
-        <Route path="/class/:id" element={<ClassShow />}/>
 
         {/* Login/Signup Routes below */}
         <Route path='/signup' element={<Signup handleSignUp={handleSignUp}/>}/>
         <Route path='/login' element={<Login handleLogin={handleLogin}/>}/>  
 
-        {/*Review Route*/}
-        <Route path="/class/:id" element={<ClassShow review={review} createReview={createReview} updateReview={updateReview} deleteReview={deleteReview}/>}/> 
+        {/* Class Routes below*/}
+        <Route path="/class" element={<Home />}/>
+        <Route path="/class/:id" element={<ClassShow />}/>
+        <Route path="/class/:id/review/:reviewId" element={<ClassShow />}/>
 
         {/*Reservation Route*/}
         <Route path="/reservation" element={<Reservations reservation={reservation} createReservation={createReservation} deleteReservation={deleteReservation}/>}/>

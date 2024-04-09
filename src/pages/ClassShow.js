@@ -3,8 +3,9 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import Edit from '../components/Edit'
 import Delete from '../components/Delete'
+import Add from '../components/Add'
 
-const ClassShow = (props) => {
+const ClassShow = ({createReservation}) => {
 
     const { id } = useParams();
     const navigate = useNavigate()
@@ -96,6 +97,8 @@ const ClassShow = (props) => {
         <p className="mb-2"><span className="font-semibold">No reviews yet.</span></p>
         }
 
+       
+
         <br></br>
 
         <h1 className='coolFont text-1xl font-bold text-center mb-4'>Add a Review!</h1>
@@ -107,6 +110,8 @@ const ClassShow = (props) => {
         />
         <br></br>
         <input type="button" value="Submit" onClick={handleSubmit} className='text-1xl font-bold text-center mb-4'/>
+
+         <Add createReservation={createReservation} />
     </div>
   )
 }

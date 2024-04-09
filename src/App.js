@@ -85,37 +85,91 @@ function App() {
   }, [])
 
   //Reservation
-  const resURL = "http://localhost:4000/reservation/"
+  const resURL = "http://localhost:4000/api/reservation/"
 
     const [reservation, setReservation] = useState(null)
 
-    const getReservation = async() => {
-        const response = await fetch(resURL)
-        const data = await response.json()
-        setReservation(data.data)
-        console.log(data.data)
-    }
+    const getReservation = async () => {
+      try {
+          const response = await fetch(resURL)
+          if (!response.ok) {
+              throw new Error('Network response was not ok')
+          }
+          const data = await response.json()
+          setReservation(data.data)
+      } catch (error) {
+          console.error('Fetch error:', error.message)
+      }
+  };
+  
 
-    const createReservation = async(classData) => {
-        console.log("creating res")
+    // const createReservation = async(classData) => {
+    //     console.log("creating res")
+    //     const createdRes = await fetch(resURL, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(classData)
+    //     })
+    //     navigate("/reservation")
+    //     getReservation()
+    //     console.log(createdRes)
+    // }
+
+    const createReservation = async (classData) => {
+      if (!user || !classData) {
+        console.error("User or Class Data is not available.")
+        return
+      }
+    
+      const reservationData = {
+        userId: user._id,
+        classId: classData._id, 
+        attending: true
+      };
+    
+      try {
         const createdRes = await fetch(resURL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(classData)
-        })
+            body: JSON.stringify(reservationData)
+        });
+        if (!createdRes.ok) {
+          throw new Error('Failed to create reservation')
+        }
         navigate("/reservation")
-        getReservation()
-        console.log(createdRes)
+        getReservation();
+      } catch (error) {
+        console.error('Error in adding reservation:', error)
+      }
     }
+  
+    
 
-    const deleteReservation = async(id) => {
-        await fetch(resURL + id, {
-            method: "DELETE"
-        })
+    // const deleteReservation = async(id) => {
+    //     await fetch(resURL + id, {
+    //         method: "DELETE"
+    //     })
+    //     getReservation()
+    // }
+
+    const deleteReservation = async (id) => {
+      const response = await fetch(`${resURL}${id}`, {
+        method: "DELETE"
+      })
+      if (response.ok) {
         getReservation()
+      } else {
+       
+        const error = await response.json()
+        console.error('Error deleting reservation:', error.message)
+      }
     }
+    
+  
 
     useEffect(() => {
         getReservation()
@@ -123,9 +177,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <h1 className="text-3xl font-bold underline">
-        FitHub
-      </h1> */}
+      
       <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} user={user}/>
       <Routes>
 
@@ -135,7 +187,7 @@ function App() {
 
         {/* Class Routes below*/}
         <Route path="/class" element={<Home />}/>
-        <Route path="/class/:id" element={<ClassShow />}/>
+        <Route path="/class/:id" element={<ClassShow createReservation = {createReservation}/>}/>
         <Route path="/class/:id/review/:reviewId" element={<ClassShow />}/>
 
         {/*Reservation Route*/}

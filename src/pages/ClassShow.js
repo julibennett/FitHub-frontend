@@ -5,21 +5,19 @@ import Edit from '../components/Edit'
 import Delete from '../components/Delete'
 import Add from '../components/Add'
 
-const ClassShow = ({createReservation, fetchUser, isLoggedIn, user}) => {
+const ClassShow = (props) => {
 
     const { id } = useParams();
-    const params = useParams()
     const navigate = useNavigate()
-    console.log(user)
+
     const [workoutClass, setWorkoutClass] = useState(null);
-    const [input, setInput] = useState(null);
+    const [form, setForm] = useState(null);
     const [review, setReview] = useState(null)
-  
-    //Fetch User
-    useEffect(()=>{
-      // if the user refreshes the page this runs and fetches their data again
-      fetchUser(params.id)
-    }, [])
+    const token = localStorage.getItem("authToken")
+    const userId = localStorage.getItem("userId")
+    const username = localStorage.getItem("username")
+    console.log(token)
+    console.log(username)
 
     //Show Classes
     useEffect(() => {
@@ -57,13 +55,14 @@ const ClassShow = ({createReservation, fetchUser, isLoggedIn, user}) => {
     if (!workoutClass) return <div>Loading...</div>
 
     //Review Fetch Calls
-    const createReview = async (review) => {
+    const createReview = async (form) => {
         const createdReview = await fetch(`http://localhost:4000/class/${id}/review`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "authorization": token
             },
-            body: JSON.stringify(review)
+            body: JSON.stringify(form)
         })
         navigate(`/class`)
     }
@@ -71,13 +70,13 @@ const ClassShow = ({createReservation, fetchUser, isLoggedIn, user}) => {
      //Add Reviews
     const handleChange = (e) => {
         console.log("typing review...")
-        setInput({...input, [e.target.name]: e.target.value})
+        setForm({...form, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = (e) => {
         console.log("adding review")
         e.preventDefault()
-        createReview(input)
+        createReview(form)
         navigate(`/class`)
     }  
 
@@ -94,16 +93,15 @@ const ClassShow = ({createReservation, fetchUser, isLoggedIn, user}) => {
         {workoutClass.review && workoutClass.review.length > 0 ? 
             workoutClass.review.map((rev, index) => (
                 <React.Fragment key={index}>
-                    <p className="mb-2">{rev.username}</p>
+                    <p className="mb-2 underline">{rev.username} says:</p>
                     <p className="mb-2">{rev.comments}</p>
-                    <p className="mb-2">{rev.userId}</p>
                     <p className="mb-2">{rev.timestamps}</p>
- 
-                        <React.Fragment>
-                          <Edit reviewId={rev._id} comments={rev.comments}/>
-                          <Delete reviewId={rev._id}/>
-                        </React.Fragment>
-
+                    {username == rev.username ? (
+                      <>
+                        <Edit reviewId={rev._id} comments={rev.comments} />
+                        <Delete reviewId={rev._id} />
+                      </>
+                    ) : null}
                 </React.Fragment>
         )) : 
         <p className="mb-2"><span className="font-semibold">No reviews yet.</span></p>
@@ -112,16 +110,28 @@ const ClassShow = ({createReservation, fetchUser, isLoggedIn, user}) => {
         <br></br>
 
         <h1 className='coolFont text-1xl font-bold text-center mb-4'>Add a Review!</h1>
-        <input style={{width: "230px", height: "100px"}}
-            type="text"
-            name="comments"
-            placeholder="Let us know what you think!"
-            onChange={handleChange}
-        />
-        <br></br>
-        <input type="button" value="Submit" onClick={handleSubmit} className='text-1xl font-bold text-center mb-4'/>
+        <form onSubmit={handleSubmit}>
+          <label>
+            <input 
+              type="text"
+              name="username"
+              placeholder="Enter username"
+              onChange={handleChange}
+            />
+          </label>
+          <br></br>
+          <label>
+            <input style={{width: "300px", height: "200px"}}
+              type="text"
+              name="comments"
+              placeholder="Let us know what you think!"
+              onChange={handleChange}
+            />
+          </label>
+          <br></br>
+          <button type="submit" className='text-1xl font-bold text-center mb-4'>Submit</button> 
+        </form>
 
-         <Add createReservation={createReservation} />
     </div>
   )
 }

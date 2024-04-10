@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Header = ({isLoggedIn, handleLogout}) => {
   console.log(isLoggedIn)
   let username = localStorage.getItem("username")
-  
+
   const loggedInLink = (
     
     <div className='flex items-center space-x-4'>

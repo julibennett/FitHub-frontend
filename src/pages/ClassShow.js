@@ -5,15 +5,22 @@ import Edit from '../components/Edit'
 import Delete from '../components/Delete'
 import Add from '../components/Add'
 
-const ClassShow = ({createReservation}) => {
+const ClassShow = ({createReservation, fetchUser, isLoggedIn, user}) => {
 
     const { id } = useParams();
+    const params = useParams()
     const navigate = useNavigate()
-
+    console.log(user)
     const [workoutClass, setWorkoutClass] = useState(null);
     const [input, setInput] = useState(null);
     const [review, setReview] = useState(null)
   
+    //Fetch User
+    useEffect(()=>{
+      // if the user refreshes the page this runs and fetches their data again
+      fetchUser(params.id)
+    }, [])
+
     //Show Classes
     useEffect(() => {
       
@@ -89,15 +96,18 @@ const ClassShow = ({createReservation}) => {
                 <React.Fragment key={index}>
                     <p className="mb-2">{rev.username}</p>
                     <p className="mb-2">{rev.comments}</p>
+                    <p className="mb-2">{rev.userId}</p>
                     <p className="mb-2">{rev.timestamps}</p>
-                    <Edit reviewId={rev._id} comments={rev.comments}/>
-                    <Delete reviewId={rev._id}/>
+ 
+                        <React.Fragment>
+                          <Edit reviewId={rev._id} comments={rev.comments}/>
+                          <Delete reviewId={rev._id}/>
+                        </React.Fragment>
+
                 </React.Fragment>
         )) : 
         <p className="mb-2"><span className="font-semibold">No reviews yet.</span></p>
         }
-
-       
 
         <br></br>
 

@@ -39,40 +39,30 @@ function App() {
       body: JSON.stringify(user)
     })
     const data = await response.json()
-    if(response.status !== 200){
-      console.error('Login failed:', data)
-      return
+    if(response.status !== 200 || !data.token){
+    return data
+    } else {
+      console.log(data)
     }
-    localStorage.setItem('authToken', data.token)
+    localStorage.setItem("authToken", data.token)
+    localStorage.setItem("userId", data.userId)
+    localStorage.setItem("username", user.username)
+
+    console.log(user)
+    console.log(data.userId)
     setIsLoggedIn(true)
-    await fetchUser(data.id)
-    navigate('/class')  
+    setUser(user.username)
+
+    navigate("/class")  
   }
 
   const handleLogout = () => {
     console.log("in handle log")
     localStorage.removeItem("authToken")
+    localStorage.removeItem("userId")
+    localStorage.removeItem("username")
     setIsLoggedIn(false)
     navigate("/class")
-  }
-
-  const fetchUser = async (id) => {
-    // grab the token from local storage
-    const token = localStorage.getItem("authToken")
-    if (token) {
-      const response = await fetch(URL + `user/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "authorization": token 
-        }
-      })
-      const data = await response.json()
-    //   console.log(data) //check for the data returned!
-      setUser(data.data)
-    } else {
-      console.log("no token")
-    }
   }
   
   useEffect(()=>{
@@ -178,7 +168,7 @@ function App() {
   return (
     <div className="App">
       
-      <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} user={user}/>
+      <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Routes>
 
         {/* Login/Signup Routes below */}
@@ -187,8 +177,8 @@ function App() {
 
         {/* Class Routes below*/}
         <Route path="/class" element={<Home />}/>
-        <Route path="/class/:id" element={<ClassShow createReservation = {createReservation}/>}/>
-        <Route path="/class/:id/review/:reviewId" element={<ClassShow />}/>
+        <Route path="/class/:id" element={<ClassShow isLoggedIn={isLoggedIn} createReservation = {createReservation}/>}/>
+        <Route path="/class/:id/review/:reviewId" element={<ClassShow isLoggedIn={isLoggedIn} />}/>
 
         {/*Reservation Route*/}
         <Route path="/reservation" element={<Reservations reservation={reservation} createReservation={createReservation} deleteReservation={deleteReservation}/>}/>
@@ -200,3 +190,24 @@ function App() {
 }
 
 export default App;
+
+/*
+  const fetchUser = async (id) => {
+    // grab the token from local storage
+    const token = localStorage.getItem("authToken")
+    if (token) {
+      const response = await fetch(URL + `user/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": token 
+        }
+      })
+      const data = await response.json()
+    //   console.log(data) //check for the data returned!
+      setUser(data.data)
+    } else {
+      console.log("no token")
+    }
+  }
+*/

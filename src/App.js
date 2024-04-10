@@ -45,11 +45,11 @@ function App() {
       console.log(data)
     }
     localStorage.setItem("authToken", data.token)
-    localStorage.setItem("userId", data.userId)
+    localStorage.setItem("userId", data.id)
     localStorage.setItem("username", user.username)
 
     console.log(user)
-    console.log(data.userId)
+    console.log(data.id)
     setIsLoggedIn(true)
     setUser(user.username)
 

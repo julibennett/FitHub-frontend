@@ -1,16 +1,17 @@
-import { useParams, useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const Reservations = ({ reservations, deleteReservation }) => {
-  const navigate = useNavigate()
-  const { id } = useParams()
+const Reservations = ({ reservation, deleteReservation }) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const handleDelete = (reservationId) => {
     deleteReservation(reservationId)
-    navigate("/reservation")
+    navigate("/reservation");
   };
 
-  const loaded = () => {
-    return reservations.map((workoutClass) => (
+  return reservation && reservation.length > 0 ? (
+    reservation.map(workoutClass => (
       <div key={workoutClass._id}>
         <h1>{workoutClass.studio}</h1>
         <p>{workoutClass.location}</p>
@@ -18,9 +19,7 @@ const Reservations = ({ reservations, deleteReservation }) => {
         <button onClick={() => handleDelete(workoutClass._id)}>Delete</button>
       </div>
     ))
-  }
-
-  return reservations && reservations.length > 0 ? loaded() : <h1>Loading ...</h1>
+  ) : <h1>Loading ...</h1>;
 }
 
 export default Reservations;

@@ -75,7 +75,7 @@ function App() {
   }, [])
 
   //Reservation
-  const resURL = "http://localhost:4000/api/reservation/"
+  const resURL = "http://localhost:4000/reservation/"
 
     const [reservation, setReservation] = useState(null)
 
@@ -181,7 +181,7 @@ function App() {
         <Route path="/class/:id/review/:reviewId" element={<ClassShow isLoggedIn={isLoggedIn} />}/>
 
         {/*Reservation Route*/}
-        <Route path="/reservation" element={<Reservations reservation={reservation} createReservation={createReservation} deleteReservation={deleteReservation}/>}/>
+        <Route path="/reservation" element={<Reservations reservation={reservation} deleteReservation={deleteReservation}/>}/>
 
       </Routes>
       <Footer />

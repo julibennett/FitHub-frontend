@@ -8,11 +8,15 @@ const Delete = (reviewId) => {
     //console.log(id)
     //console.log(reviewId.reviewId)
     const reviewid = reviewId.reviewId
+    const token = localStorage.getItem("authToken")
 
     const deleteReview = async () => {
         console.log("deleting review")
         await fetch(`http://localhost:4000/class/${id}/review/${reviewid}`, {
             method: "DELETE",
+            headers: {
+                "authorization": token 
+            }
         })
     }
 

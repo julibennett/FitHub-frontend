@@ -98,7 +98,7 @@ const ClassShow = (props) => {
                     <p className="mb-2">{rev.timestamps}</p>
                     {username == rev.username ? (
                       <>
-                        <Edit reviewId={rev._id} comments={rev.comments} />
+                        <Edit reviewId={rev._id} reviewUser={rev.username} comments={rev.comments} />
                         <Delete reviewId={rev._id} />
                       </>
                     ) : null}
@@ -110,29 +110,32 @@ const ClassShow = (props) => {
         <br></br>
 
         <h1 className='coolFont text-1xl font-bold text-center mb-4'>Add a Review!</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <input 
-              type="text"
-              name="username"
-              placeholder="Enter username"
-              onChange={handleChange}
-            />
-          </label>
-          <br></br>
-          <label>
-            <input style={{width: "300px", height: "200px"}}
-              type="text"
-              name="comments"
-              placeholder="Let us know what you think!"
-              onChange={handleChange}
-            />
-          </label>
-          <br></br>
-          <button type="submit" className='text-1xl font-bold text-center mb-4'>Submit</button> 
-        </form>
+        { props.isLoggedIn == true ? 
+          <form onSubmit={handleSubmit}>
+            <label>
+              <input 
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                onChange={handleChange}
+              />
+            </label>
+            <br></br>
+            <label>
+              <input style={{width: "300px", height: "200px"}}
+                type="text"
+                name="comments"
+                placeholder="Let us know what you think!"
+                onChange={handleChange}
+              />
+            </label>
+            <br></br>
+            <button type="submit" className='text-1xl font-bold text-center mb-4'>Submit</button> 
+          </form>
+          : <p>Please login to write a review.</p>
+        }
 
-        <Add createReservation={props.createReservation}/>
+        <Add  createReservation={props.createReservation}/>
 
     </div>
   )

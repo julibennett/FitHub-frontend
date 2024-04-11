@@ -26,10 +26,11 @@ const Home = (props) => {
                 {classes.map((workoutClass) => (
                     <div key={workoutClass._id} className="border p-4 rounded-lg hover:shadow-lg transition-shadow bg-purple-300">
                       
-                        <h2 className="text-xl font-semibold mb-2 coolFont underline">{workoutClass.typeOfClass}</h2>
+                        <h2 className="text-xl font-semibold mb-2 coolFont underline">{workoutClass.studio}</h2>
+                        <img src={workoutClass.image} alt="image of workout class" style={{width: "350px", height: "200px"}}/>
+                        <p className="mb-4">{workoutClass.typeOfClass}</p>
                         <p className="mb-4">{workoutClass.location}</p>
                         <p className="mb-4">{workoutClass.time}</p>
-                        <p className="mb-4">{workoutClass.studio}</p>
 
                         <Link to={`/class/${workoutClass._id}`} className="text-blue-500 hover:text-blue-600 transition-colors">View Details</Link>
                     </div>

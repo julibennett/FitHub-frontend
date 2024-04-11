@@ -76,7 +76,7 @@ const Add = ({ user, createReservation }) => {
     return (
         <section>
             <div>
-                <input type="button" value="Add" onClick={fetchClassDataAndAddReservation}/>
+                <input type="button" value="Add" className='text-1xl font-bold text-center mb-4' onClick={fetchClassDataAndAddReservation}/>
             </div>
         </section>
     );

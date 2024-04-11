@@ -2,16 +2,18 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-const Edit = ({ reviewId, comments}) => {
+const Edit = ({ reviewId, reviewUser, comments}) => {
 
     const navigate = useNavigate()
     const { id } = useParams()
 
     //console.log(id)
     //console.log(reviewId)
+    //console.log(reviewUser)
 
-    const [review, setReview] = useState(comments)
+    const [review, setReview] = useState(null)
     const [editing, setEditing] = useState(false)
+    const token = localStorage.getItem("authToken")
 
     const updateReview = async (review) => {
         //console.log(review.comments)
@@ -19,6 +21,7 @@ const Edit = ({ reviewId, comments}) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "authorization": token
             },
             body: JSON.stringify(review)
         })
@@ -30,34 +33,48 @@ const Edit = ({ reviewId, comments}) => {
 
     const handleChange = (e) => {
         console.log("typing review...")
-        setReview({[e.target.name]: e.target.value})
+        setReview({...review, [e.target.name]: e.target.value})
     }
 
     const editReview = (e) => {
         setEditing(false)
         e.preventDefault()
         updateReview(review, reviewId)
-        console.log(review)
+        //console.log(review)
         navigate(`/class`)
     }
 
     return (
         <div>
-            {editing === true ? (
-                <div>
-                    <input style={{width: "200px", height: "100px"}}
+        {editing === true ? (
+            <div>
+                <form onSubmit={editReview}>
+                    <label>
+                        <input 
+                        type="text"
+                        name="username"
+                        placeholder="Enter username"
+                        onChange={handleChange}
+                        />
+                    </label>
+                    <br></br>
+                    <label>
+                        <input style={{width: "300px", height: "200px"}}
                         type="text"
                         name="comments"
-                        placeholder="Enter new review."
+                        placeholder="Let us know what you think again!"
                         onChange={handleChange}
-                    />
+                        />
+                    </label>
                     <br></br>
-                    <input type="button" value="Submit" onClick={editReview} className='text-1xl font-bold text-center mb-4'/>
-                </div>
-            ) : (
-                <input type="button" value="Edit" onClick={handleEdit} className='text-1xl font-bold text-center mb-4'/>
-            )}
-        </div>
+                    <button type="submit">Submit</button> 
+                </form>
+                <br></br>
+            </div>
+        ) : (
+            <input type="button" value="Edit" onClick={handleEdit} className='text-1xl font-bold text-center mb-4'/>
+        )}
+    </div>
     )
 }
 

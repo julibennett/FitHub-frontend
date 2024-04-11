@@ -59,6 +59,7 @@ const Add = ({ user, createReservation }) => {
                     userId: userId,
                     attending: true
                 });
+                console.log('create reservation', createReservation)
                 console.log("Reservation Added");
                 navigate("/reservation");
             } else {
@@ -71,7 +72,7 @@ const Add = ({ user, createReservation }) => {
         } catch (error) {
             console.error("Error in adding reservation:", error)
         }
-    }, [id, createReservation, navigate])
+    }, [id, userId, createReservation, navigate])
 
     return (
         <section>

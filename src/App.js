@@ -138,39 +138,38 @@ function App() {
     //     getReservation()
     //     console.log(createdRes)
     // }
-
-    const createReservation = async (classData) => {
-      if (!user || !classData) {
-        console.log("User:", user);
-        console.log("Class Data:", classData)
-
-        console.error("User or Class Data is not available.")
-        return
+    // console.log(classData)
+    const createReservation = async (reservationInfo) => {
+      if (!reservationInfo || !reservationInfo.userId || !reservationInfo.classId) {
+        console.log("Reservation Info:", reservationInfo);
+        console.error("User or Class Data is not available.");
+        return;
       }
     
       const reservationData = {
-        userId: user._id,
-        classId: classData._id, 
-        attending: true
+        userId: reservationInfo.userId,
+        classId: reservationInfo.classId, 
+        attending: reservationInfo.attending || true  // default to true if not provided
       };
     
       try {
         const createdRes = await fetch(resURL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(reservationData)
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify(reservationData)
         });
         if (!createdRes.ok) {
-          throw new Error('Failed to create reservation')
+          throw new Error('Failed to create reservation');
         }
-        navigate("/reservation")
+        navigate("/reservation");
         getReservation();
       } catch (error) {
-        console.error('Error in adding reservation:', error)
+        console.error('Error in adding reservation:', error);
       }
     }
+    
   
     
 

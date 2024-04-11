@@ -30,31 +30,63 @@ function App() {
     navigate('/login')
   }
 
+  // const handleLogin = async(user) => {
+  //   const response = await fetch(URL + 'auth/login', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(user)
+  //   })
+  //   const data = await response.json()
+  //   if(response.status !== 200 || !data.token){
+  //   return data
+  //   } else {
+  //     console.log(data)
+  //   }
+  //   localStorage.setItem("authToken", data.token)
+  //   localStorage.setItem("userId", data.userId)
+  //   localStorage.setItem("username", user.username)
+
+  //   console.log(user)
+  //   console.log(data.userId)
+  //   setIsLoggedIn(true)
+  //   setUser(user.username)
+
+  //   navigate("/class")  
+  // }
+
   const handleLogin = async(user) => {
     const response = await fetch(URL + 'auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
     })
     const data = await response.json()
     if(response.status !== 200 || !data.token){
-    return data
+        return data
     } else {
-      console.log(data)
+        console.log(data)
     }
     localStorage.setItem("authToken", data.token)
-    localStorage.setItem("userId", data.id)
+    localStorage.setItem("userId", data.userId)
     localStorage.setItem("username", user.username)
 
     console.log(user)
-    console.log(data.id)
-    setIsLoggedIn(true)
-    setUser(user.username)
+    console.log(data.userId)
+    
+    // Set user in state to include more details
+    setUser({
+      username: user.username,
+      _id: data.userId // Assuming 'data.userId' is the correct ID field returned from your backend
+    })
 
+    setIsLoggedIn(true)
     navigate("/class")  
-  }
+}
+
 
   const handleLogout = () => {
     console.log("in handle log")
@@ -109,6 +141,9 @@ function App() {
 
     const createReservation = async (classData) => {
       if (!user || !classData) {
+        console.log("User:", user);
+        console.log("Class Data:", classData)
+
         console.error("User or Class Data is not available.")
         return
       }
@@ -181,7 +216,7 @@ function App() {
         <Route path="/class/:id/review/:reviewId" element={<ClassShow isLoggedIn={isLoggedIn} />}/>
 
         {/*Reservation Route*/}
-        <Route path="/reservation" element={<Reservations reservation={reservation} createReservation={createReservation} deleteReservation={deleteReservation}/>}/>
+        <Route path="/reservation" element={<Reservations reservation={reservation} deleteReservation={deleteReservation}/>}/>
 
       </Routes>
       <Footer />

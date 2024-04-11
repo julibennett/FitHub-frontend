@@ -132,7 +132,7 @@ const ClassShow = (props) => {
           <button type="submit" className='text-1xl font-bold text-center mb-4'>Submit</button> 
         </form>
 
-        <Add user={props.userId} createReservation={props.createReservation}/>
+        <Add createReservation={props.createReservation}/>
 
     </div>
   )

@@ -41,20 +41,22 @@ import { useCallback } from "react"
 const Add = ({ user, createReservation }) => {
     const { id } = useParams()
     const navigate = useNavigate()
-
+    const userId = localStorage.getItem("userId")
     
     const fetchClassDataAndAddReservation = useCallback(async () => {
         try {
             
             const response = await fetch(`http://localhost:4000/class/${id}`)
             const data = await response.json()
-            console.log(data)
             
             if (response.ok) {
-            if (data && data._id) {
+                console.log(data.data)
+                console.log(data.data._id)
+                console.log(userId)
+            if (data.data && data.data._id) {
                 await createReservation({
-                    classId: data._id,
-                    userId: user._id,
+                    classId: data.data._id,
+                    userId: userId,
                     attending: true
                 });
                 console.log("Reservation Added");

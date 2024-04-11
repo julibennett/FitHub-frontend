@@ -38,7 +38,7 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useCallback } from "react"
 
-const Add = ({ createReservation }) => {
+const Add = ({ user, createReservation }) => {
     const { id } = useParams()
     const navigate = useNavigate()
 
@@ -48,18 +48,24 @@ const Add = ({ createReservation }) => {
             
             const response = await fetch(`http://localhost:4000/class/${id}`)
             const data = await response.json()
+            console.log(data)
             
             if (response.ok) {
-                
+            if (data && data._id) {
                 await createReservation({
-                    userId: 'user_id',  
+                    classId: data._id,
+                    userId: user._id,
                     attending: true
                 });
-                console.log("Reservation Added")
-                navigate("/reservation")
+                console.log("Reservation Added");
+                navigate("/reservation");
             } else {
-                throw new Error("Failed to fetch class data")
+                throw new Error("Data is missing or _id is undefined");
             }
+        } else {
+            throw new Error("Failed to fetch class data");
+        }
+
         } catch (error) {
             console.error("Error in adding reservation:", error)
         }

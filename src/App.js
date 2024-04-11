@@ -71,16 +71,16 @@ function App() {
         console.log(data)
     }
     localStorage.setItem("authToken", data.token)
-    localStorage.setItem("userId", data.userId)
+    localStorage.setItem("userId", data.id)
     localStorage.setItem("username", user.username)
 
     console.log(user)
-    console.log(data.userId)
+    console.log(data.id)
     
     // Set user in state to include more details
     setUser({
       username: user.username,
-      _id: data.userId // Assuming 'data.userId' is the correct ID field returned from your backend
+      _id: data.id // Assuming 'data.userId' is the correct ID field returned from your backend
     })
 
     setIsLoggedIn(true)

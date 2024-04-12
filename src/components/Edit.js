@@ -17,7 +17,7 @@ const Edit = ({ reviewId, reviewUser, comments}) => {
 
     const updateReview = async (review) => {
         //console.log(review.comments)
-        await fetch(`http://localhost:4000/class/${id}/review/${reviewId}`, {
+        await fetch(`http://localhost:4000/api/class/${id}/review/${reviewId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

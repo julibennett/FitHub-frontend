@@ -30,31 +30,6 @@ function App() {
     navigate('/login')
   }
 
-  // const handleLogin = async(user) => {
-  //   const response = await fetch(URL + 'auth/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(user)
-  //   })
-  //   const data = await response.json()
-  //   if(response.status !== 200 || !data.token){
-  //   return data
-  //   } else {
-  //     console.log(data)
-  //   }
-  //   localStorage.setItem("authToken", data.token)
-  //   localStorage.setItem("userId", data.userId)
-  //   localStorage.setItem("username", user.username)
-
-  //   console.log(user)
-  //   console.log(data.userId)
-  //   setIsLoggedIn(true)
-  //   setUser(user.username)
-
-  //   navigate("/class")  
-  // }
 
   const handleLogin = async(user) => {
     const response = await fetch(URL + 'auth/login', {
@@ -77,10 +52,9 @@ function App() {
     console.log(user)
     console.log(data.id)
     
-    // Set user in state to include more details
     setUser({
       username: user.username,
-      _id: data.id // Assuming 'data.userId' is the correct ID field returned from your backend
+      _id: data.id 
     })
 
     setIsLoggedIn(true)
@@ -109,35 +83,35 @@ function App() {
   //Reservation
   const resURL = "http://localhost:4000/api/reservation/"
 
-    const [reservation, setReservation] = useState(null)
+    const [reservations, setReservation] = useState([])
 
     const getReservation = async () => {
       try {
-          const response = await fetch(resURL)
-          if (!response.ok) {
-              throw new Error('Network response was not ok')
+        const response = await fetch(resURL);
+        if (!response.ok) {
+          throw new Error(`Network response was not ok, status: ${response.status}`);
+        }
+        const reservations = await response.json();
+        console.log("Fetched Reservations:", reservations.data); 
+        const fullReservations = await Promise.all(reservations.data.map(async (reservation) => {
+          const classResponse = await fetch(`http://localhost:4000/api/class/${reservation.classId._id}`);
+          // console.log(classId)
+          if (!classResponse.ok) {
+            throw new Error(`Failed to fetch class details, status: ${classResponse.status}`);
           }
-          const data = await response.json()
-          setReservation(data.data)
+          const classData = await classResponse.json();
+          return {...reservation, classDetails: classData};
+        }));
+        console.log("Full Reservations with Class Details:", fullReservations); 
+        setReservation(fullReservations);
       } catch (error) {
-          console.error('Fetch error:', error.message)
+        console.error('Fetch error:', error.message);
       }
-  };
+    };
   
 
-    // const createReservation = async(classData) => {
-    //     console.log("creating res")
-    //     const createdRes = await fetch(resURL, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(classData)
-    //     })
-    //     navigate("/reservation")
-    //     getReservation()
-    //     console.log(createdRes)
-    // }
+    
+    
     // console.log(classData)
     const createReservation = async (reservationInfo) => {
       if (!reservationInfo || !reservationInfo.userId || !reservationInfo.classId) {
@@ -149,7 +123,7 @@ function App() {
       const reservationData = {
         userId: reservationInfo.userId,
         classId: reservationInfo.classId, 
-        attending: reservationInfo.attending || true  // default to true if not provided
+        attending: reservationInfo.attending || true  
       };
     
       try {
@@ -173,12 +147,7 @@ function App() {
   
     
 
-    // const deleteReservation = async(id) => {
-    //     await fetch(resURL + id, {
-    //         method: "DELETE"
-    //     })
-    //     getReservation()
-    // }
+
 
     const deleteReservation = async (id) => {
       const response = await fetch(`${resURL}${id}`, {
@@ -186,6 +155,7 @@ function App() {
       })
       if (response.ok) {
         getReservation()
+        console.log('Reservation Deleted')
       } else {
        
         const error = await response.json()
@@ -200,7 +170,7 @@ function App() {
     }, []);
 
   return (
-    <div className="App">
+    <div className="App app-container">
       
       <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Routes>
@@ -215,7 +185,7 @@ function App() {
         <Route path="/class/:id/review/:reviewId" element={<ClassShow isLoggedIn={isLoggedIn} />}/>
 
         {/*Reservation Route*/}
-        <Route path="/reservation" element={<Reservations reservation={reservation} deleteReservation={deleteReservation}/>}/>
+        <Route path="/reservation" element={<Reservations reservations={reservations} deleteReservation={deleteReservation}/>}/>
 
       </Routes>
       <Footer />

@@ -36,3 +36,9 @@ code {
 .allWorkouts {
   font-size: 2em;
 }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

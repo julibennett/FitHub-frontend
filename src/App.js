@@ -30,7 +30,6 @@ function App() {
     navigate('/login')
   }
 
-
   const handleLogin = async(user) => {
     const response = await fetch(URL + 'auth/login', {
         method: 'POST',
@@ -60,7 +59,6 @@ function App() {
     setIsLoggedIn(true)
     navigate("/class")  
 }
-
 
   const handleLogout = () => {
     console.log("in handle log")
@@ -125,11 +123,6 @@ const getReservations = async () => {
       console.error('Fetch error:', error.message);
   }
 };
-
-
-  
-
-    
     
     // console.log(classData)
     const createReservation = async (reservationInfo) => {
@@ -162,12 +155,7 @@ const getReservations = async () => {
         console.error('Error in adding reservation:', error);
       }
     }
-    
-  
-    
-
-
-
+ 
     const deleteReservation = async (id) => {
       const response = await fetch(`${resURL}${id}`, {
         method: "DELETE"
@@ -182,8 +170,6 @@ const getReservations = async () => {
       }
     }
     
-  
-
     useEffect(() => {
         getReservations()
     }, []);

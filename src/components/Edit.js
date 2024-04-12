@@ -50,29 +50,28 @@ const Edit = ({ reviewId, reviewUser, comments}) => {
             <div>
                 <form onSubmit={editReview}>
                     <label>
-                        <input 
+                        <input className='border-double border-2 border-purple-300 rounded-lg px-1 py-1 mb-5'
                         type="text"
                         name="username"
-                        placeholder="Enter username"
+                        placeholder="Enter username."
                         onChange={handleChange}
                         />
                     </label>
                     <br></br>
                     <label>
-                        <input style={{width: "300px", height: "200px"}}
-                        type="text"
-                        name="comments"
-                        placeholder="Let us know what you think again!"
-                        onChange={handleChange}
-                        />
+                        <textarea class="border-double border-2 border-purple-300 rounded-lg px-4 py-2 resize-none" rows="4" type="text"
+                            name="comments"
+                            placeholder="Let us know what you think again!"
+                            onChange={handleChange}>
+                        </textarea>
                     </label>
                     <br></br>
-                    <button type="submit">Submit</button> 
+                    <button type="submit" className='text-1xl font-bold text-center text-purple-400'>Submit</button> 
                 </form>
                 <br></br>
             </div>
         ) : (
-            <input type="button" value="Edit" onClick={handleEdit} className='text-1xl font-bold text-center mb-4'/>
+            <input type="button" value="Edit" onClick={handleEdit} className='text-1xl font-bold text-center text-purple-400'/>
         )}
     </div>
     )

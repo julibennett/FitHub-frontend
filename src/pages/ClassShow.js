@@ -16,8 +16,8 @@ const ClassShow = (props) => {
     const token = localStorage.getItem("authToken")
     const userId = localStorage.getItem("userId")
     const username = localStorage.getItem("username")
-    console.log(token)
-    console.log(username)
+    //console.log(token)
+    //console.log(username)
 
     //Show Classes
     useEffect(() => {
@@ -84,7 +84,7 @@ const ClassShow = (props) => {
   return (
     <div className="container mx-auto p-4 max-w-md mx-auto mt-10 bg-white shadow-lg rounded-lg p-8">
       <h1 className='coolFont text-2xl font-bold text-center mb-4'>{workoutClass.typeOfClass}</h1>
-      <img src={workoutClass.image} alt="image of workout class" style={{width: "350px", height: "200px"}} />
+      <img className="object-contain border-double border-4 rounded-xl border-purple-300"src={workoutClass.image} alt="image of workout class" />
         <p className="mb-2"><span className="font-semibold">Location:</span> {workoutClass.location}</p>
         <p className="mb-2"><span className="font-semibold">Time:</span> {workoutClass.time}</p>
         <p className="mb-2"><span className="font-semibold">Studio:</span> {workoutClass.studio}</p>
@@ -94,15 +94,16 @@ const ClassShow = (props) => {
         {workoutClass.review && workoutClass.review.length > 0 ? 
             workoutClass.review.map((rev, index) => (
                 <React.Fragment key={index}>
+                  <div className="bg-slate-50 border-double border-2 border-purple-300 rounded-xl">
                     <p className="mb-2 underline">{rev.username} says:</p>
-                    <p className="mb-2">{rev.comments}</p>
-                    <p className="mb-2">{rev.timestamps}</p>
+                    <p className="mb-4">{rev.comments}</p>
                     {username == rev.username ? (
                       <>
                         <Edit reviewId={rev._id} reviewUser={rev.username} comments={rev.comments} />
                         <Delete reviewId={rev._id} />
                       </>
                     ) : null}
+                  </div>
                 </React.Fragment>
         )) : 
         <p className="mb-2"><span className="font-semibold">No reviews yet.</span></p>
@@ -114,29 +115,29 @@ const ClassShow = (props) => {
         { props.isLoggedIn == true ? 
           <form onSubmit={handleSubmit}>
             <label>
-              <input 
+              <input className='border-double border-2 border-purple-300 rounded-lg px-1 py-1 mb-5'
                 type="text"
                 name="username"
-                placeholder="Enter username"
+                placeholder="Enter username."
                 onChange={handleChange}
               />
             </label>
             <br></br>
             <label>
-              <input style={{width: "300px", height: "200px"}}
-                type="text"
+              <textarea class="border-double border-2 border-purple-300 rounded-lg px-4 py-2 resize-none" rows="4" type="text"
                 name="comments"
                 placeholder="Let us know what you think!"
-                onChange={handleChange}
-              />
+                onChange={handleChange}>
+
+              </textarea>
             </label>
             <br></br>
-            <button type="submit" className='text-1xl font-bold text-center mb-4'>Submit</button> 
+            <button type="submit" className='text-1xl font-bold text-center mb-8 text-purple-400' >Submit</button> 
           </form>
           : <p>Please login to write a review.</p>
         }
 
-        <Add  createReservation={props.createReservation}/>
+        <Add createReservation={props.createReservation} isLoggedIn={props.isLoggedIn}/>
 
     </div>
   )

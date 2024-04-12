@@ -22,7 +22,7 @@ const ClassShow = (props) => {
     //Show Classes
     useEffect(() => {
       
-      const URL = `http://localhost:4000/class/${id}`;
+      const URL = `http://localhost:4000/api/class/${id}`;
   
       const fetchClassDetails = async () => {
         try {
@@ -37,7 +37,7 @@ const ClassShow = (props) => {
       fetchClassDetails()
     }, [id])
 
-    const revURL = `http://localhost:4000/class/${id}`;
+    const revURL = `http://localhost:4000/api/class/${id}`;
 
     useEffect(() => {
         const getReview = async() => {
@@ -56,7 +56,7 @@ const ClassShow = (props) => {
 
     //Review Fetch Calls
     const createReview = async (form) => {
-        const createdReview = await fetch(`http://localhost:4000/class/${id}/review`, {
+        const createdReview = await fetch(`http://localhost:4000/api/class/${id}/review`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -84,6 +84,7 @@ const ClassShow = (props) => {
   return (
     <div className="container mx-auto p-4 max-w-md mx-auto mt-10 bg-white shadow-lg rounded-lg p-8">
       <h1 className='coolFont text-2xl font-bold text-center mb-4'>{workoutClass.typeOfClass}</h1>
+      <img src={workoutClass.image} alt="image of workout class" style={{width: "350px", height: "200px"}} />
         <p className="mb-2"><span className="font-semibold">Location:</span> {workoutClass.location}</p>
         <p className="mb-2"><span className="font-semibold">Time:</span> {workoutClass.time}</p>
         <p className="mb-2"><span className="font-semibold">Studio:</span> {workoutClass.studio}</p>

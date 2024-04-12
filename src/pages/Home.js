@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Home = (props) => {
   const [classes, setClasses] = useState([])
-    const URL = 'http://localhost:4000/class'
+    const URL = 'http://localhost:4000/api/class'
 
     const fetchClasses = async () => {
       try{

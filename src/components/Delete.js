@@ -28,7 +28,7 @@ const Delete = (reviewId) => {
 
   return (
     <div>
-        <input type="button" value="Delete" onClick={removeReview} className='text-1xl font-bold text-center mb-4'/>
+        <input type="button" value="Delete" onClick={removeReview} className='text-1xl font-bold text-center text-purple-400'/>
     </div>
   )
 }

@@ -27,7 +27,7 @@ const Home = (props) => {
                     <div key={workoutClass._id} className="border p-4 rounded-lg hover:shadow-lg transition-shadow bg-purple-300">
                       
                         <h2 className="text-xl font-semibold mb-2 coolFont underline">{workoutClass.studio}</h2>
-                        <img src={workoutClass.image} alt="image of workout class" style={{width: "350px", height: "200px"}}/>
+                        <img className="object-contain border-double border-4 rounded-xl" src={workoutClass.image} alt="image of workout class"/>
                         <p className="mb-4">{workoutClass.typeOfClass}</p>
                         <p className="mb-4">{workoutClass.location}</p>
                         <p className="mb-4">{workoutClass.time}</p>

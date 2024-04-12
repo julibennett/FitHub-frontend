@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useCallback } from "react"
 
-const Add = ({ user, createReservation }) => {
+const Add = ({ user, createReservation, isLoggedIn }) => {
     const { id } = useParams()
     const navigate = useNavigate()
     const userId = localStorage.getItem("userId")
@@ -40,7 +40,11 @@ const Add = ({ user, createReservation }) => {
     return (
         <section>
             <div>
-                <input type="button" value="Add" className='text-1xl font-bold text-center mb-4' onClick={fetchClassDataAndAddReservation}/>
+                {isLoggedIn == true ?
+                    <input type="button" value="Add Class!" className='text-1xl font-bold text-center' onClick={fetchClassDataAndAddReservation}/>
+                :
+                    null
+                }
             </div>
         </section>
     );

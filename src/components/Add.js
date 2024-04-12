@@ -41,7 +41,7 @@ const Add = ({ user, createReservation, isLoggedIn }) => {
         <section>
             <div>
                 {isLoggedIn == true ?
-                    <input type="button" value="Add Class!" className='text-1xl font-bold text-center' onClick={fetchClassDataAndAddReservation}/>
+                    <input type="button" value="Reserve Class!" className='text-1xl font-bold text-center' onClick={fetchClassDataAndAddReservation}/>
                 :
                     null
                 }

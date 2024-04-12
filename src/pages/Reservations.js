@@ -34,7 +34,7 @@ const Reservations = ({ reservations, deleteReservation }) => {
           <div key={reservation._id} className="bg-white text-black rounded-lg shadow-md p-4">
             <>
               <h1 className="text-lg font-bold">{reservation.classId ? reservation.classId.studio : 'No Studio Info'}</h1>
-              <img src={reservation.classId ? reservation.classId.image : '/path/to/default/image.png'} alt="image of workout class" className="object-contain border-double border-4 rounded-xl border-purple-300"/>
+              <img src={reservation.classId ? reservation.classId.image : '/path/to/default/image.png'} alt="image of workout class" className="object-contain border-double border-4 rounded-xl border-purple-300 mb-4"/>
               <p>{reservation.classId ? reservation.classId.location : 'No Location Info'}</p>
               <p>{reservation.classId ? reservation.classId.typeOfClass : 'No Class Type Info'}</p>
               <p>Time: {reservation.classId ? reservation.classId.time : 'No Time Info'}</p>

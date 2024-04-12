@@ -27,10 +27,10 @@ const Home = (props) => {
                     <div key={workoutClass._id} className="border p-4 rounded-lg hover:shadow-lg transition-shadow bg-purple-300">
                       
                         <h2 className="text-xl font-semibold mb-2 coolFont underline">{workoutClass.studio}</h2>
-                        <img className="object-contain border-double border-4 rounded-xl" src={workoutClass.image} alt="image of workout class"/>
-                        <p className="mb-4">{workoutClass.typeOfClass}</p>
-                        <p className="mb-4">{workoutClass.location}</p>
-                        <p className="mb-4">{workoutClass.time}</p>
+                        <img className="object-contain border-double border-4 rounded-xl mb-3" src={workoutClass.image} alt="image of workout class"/>
+                        <p className="mb-2">{workoutClass.typeOfClass}</p>
+                        <p className="mb-2">{workoutClass.location}</p>
+                        <p className="mb-2">{workoutClass.time}</p>
 
                         <Link to={`/class/${workoutClass._id}`} className="text-blue-500 hover:text-blue-600 transition-colors">View Details</Link>
                     </div>

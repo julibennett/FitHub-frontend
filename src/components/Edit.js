@@ -71,7 +71,7 @@ const Edit = ({ reviewId, reviewUser, comments}) => {
                 <br></br>
             </div>
         ) : (
-            <input type="button" value="Edit" onClick={handleEdit} className='text-1xl font-bold text-center text-purple-400'/>
+            <input type="button" value="Edit" onClick={handleEdit} className='text-1xl font-bold text-center text-purple-400 mr-2'/>
         )}
     </div>
     )

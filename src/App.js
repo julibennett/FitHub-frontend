@@ -81,33 +81,52 @@ function App() {
   }, [])
 
   //Reservation
-  const resURL = "http://localhost:4000/api/reservation/"
+  const resURL = "http://localhost:4000/api/reservation/";
 
-    const [reservations, setReservation] = useState([])
+  const [reservations, setReservations] = useState([]);  // Note the variable name change for clarity
 
-    const getReservation = async () => {
-      try {
-        const response = await fetch(resURL);
-        if (!response.ok) {
+//   const getReservations = async () => {
+  
+//   try {
+//     const response = await fetch(resURL);
+//     if (!response.ok) {
+//       console.error('Response Status:', response.status);
+//       throw new Error(`Network response was not ok, status: ${response.status}`);
+//     }
+//     const reservationsData = await response.json();
+//     console.log("Fetched Reservations:", reservationsData.data); 
+//     const fullReservations = await Promise.all(reservationsData.data.map(async (reservation) => {
+//       const classResponse = await fetch(`http://localhost:4000/api/class/${reservation.classId._id}`);
+//       if (!classResponse.ok) {
+//         console.error('Class Fetch Status:', classResponse.status);
+//         throw new Error(`Failed to fetch class details, status: ${classResponse.status}`);
+//       }
+//       const classData = await classResponse.json();
+//       return {...reservation, classDetails: classData};
+//     }));
+//     console.log("Full Reservations with Class Details:", fullReservations);
+//     setReservations(fullReservations);
+//   } catch (error) {
+//     console.error('Fetch error:', error.message);
+//   }
+// };
+
+const getReservations = async () => {
+  try {
+      const response = await fetch(resURL);
+      if (!response.ok) {
+          console.error('Response Status:', response.status);
           throw new Error(`Network response was not ok, status: ${response.status}`);
-        }
-        const reservations = await response.json();
-        console.log("Fetched Reservations:", reservations.data); 
-        const fullReservations = await Promise.all(reservations.data.map(async (reservation) => {
-          const classResponse = await fetch(`http://localhost:4000/api/class/${reservation.classId._id}`);
-          // console.log(classId)
-          if (!classResponse.ok) {
-            throw new Error(`Failed to fetch class details, status: ${classResponse.status}`);
-          }
-          const classData = await classResponse.json();
-          return {...reservation, classDetails: classData};
-        }));
-        console.log("Full Reservations with Class Details:", fullReservations); 
-        setReservation(fullReservations);
-      } catch (error) {
-        console.error('Fetch error:', error.message);
       }
-    };
+      const reservationsData = await response.json();
+      console.log("Fetched Reservations:", reservationsData.data); 
+      setReservations(reservationsData.data);
+  } catch (error) {
+      console.error('Fetch error:', error.message);
+  }
+};
+
+
   
 
     
@@ -138,7 +157,7 @@ function App() {
           throw new Error('Failed to create reservation');
         }
         navigate("/reservation");
-        getReservation();
+        getReservations();
       } catch (error) {
         console.error('Error in adding reservation:', error);
       }
@@ -154,7 +173,7 @@ function App() {
         method: "DELETE"
       })
       if (response.ok) {
-        getReservation()
+        getReservations()
         console.log('Reservation Deleted')
       } else {
        
@@ -166,7 +185,7 @@ function App() {
   
 
     useEffect(() => {
-        getReservation()
+        getReservations()
     }, []);
 
   return (

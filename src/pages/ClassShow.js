@@ -22,7 +22,7 @@ const ClassShow = ({createReservation, isLoggedIn, URL}) => {
     //Show Classes
     useEffect(() => {
       
-      const classShowURL = `${URL}class/${id}`;
+      const classShowURL = `${URL}class/${id}`.replace(/\/\/+/g, '/')
   
       const fetchClassDetails = async () => {
         try {

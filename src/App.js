@@ -15,7 +15,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const[user, setUser] = useState(null)
   const navigate = useNavigate()
-  const URL = process.env.REACT_APP_URL
+  const URL = process.env.REACT_APP_URL.replace(/\/\/+/g, '/')
 
   const handleSignUp = async(user) => {
     const response = await fetch(`${URL}auth/signup`, {
@@ -79,7 +79,7 @@ function App() {
   }, [])
 
   //Reservation
-  const resURL = `${URL}reservation/`
+  const resURL = `${URL}/reservation/`.replace(/\/\/+/g, '/')
   const [reservations, setReservations] = useState([]);  // Note the variable name change for clarity
 
 //   const getReservations = async () => {

@@ -16,8 +16,9 @@ function App() {
   const[user, setUser] = useState(null)
   const navigate = useNavigate()
   // const URL = http://localhost:4000/api/
-  const URL = process.env.URL
+  const URL = process.env.REACT_APP_URL
 
+  console.log('URL:', URL)
   const handleSignUp = async(user) => {
     const response = await fetch(URL + 'api/auth/signup', {
       method: 'POST',

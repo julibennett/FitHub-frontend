@@ -12,7 +12,7 @@ const Delete = (reviewId) => {
 
     const deleteReview = async () => {
         console.log("deleting review")
-        await fetch(process.env.URL + `api/class/${id}/review/${reviewid}`, {
+        await fetch(process.env.REACT_APP_URL + `api/class/${id}/review/${reviewid}`, {
             method: "DELETE",
             headers: {
                 "authorization": token 

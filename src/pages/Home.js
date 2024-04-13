@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 const Home = (props) => {
   const [classes, setClasses] = useState([])
-    const HomepageURL = `${props.URL}class`.replace(/\/\/+/g, '/')
+    const HomepageURL = `${props.URL}class/`
 
     const fetchClasses = async () => {
       try{
-        const response = await fetch({HomepageURL})
+        const response = await fetch(HomepageURL)
         const data = await response.json()
         setClasses(data.data)
       }catch (error) {

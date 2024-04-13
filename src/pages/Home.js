@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 const Home = (props) => {
   const [classes, setClasses] = useState([])
-    const URL = process.env.URL + 'api/class'
+    const homeURL = `${process.env.REACT_APP_URL}/api/class`
 
     const fetchClasses = async () => {
       try{
-        const response = await fetch(URL)
+        const response = await fetch(homeURL)
         const data = await response.json()
         setClasses(data.data)
       }catch (error) {

@@ -15,10 +15,10 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const[user, setUser] = useState(null)
   const navigate = useNavigate()
-  const URL = process.env.URL
+  const baseURL = process.env.REACT_APP_URL
 
   const handleSignUp = async(user) => {
-    const response = await fetch(URL + 'api/auth/signup', {
+    const response = await fetch(`${baseURL}/api/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ function App() {
 
 
   const handleLogin = async(user) => {
-    const response = await fetch(URL + 'api/auth/login', {
+    const response = await fetch(`${baseURL}/api/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

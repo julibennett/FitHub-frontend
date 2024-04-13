@@ -19,7 +19,7 @@ function App() {
   const URL = process.env.URL
 
   const handleSignUp = async(user) => {
-    const response = await fetch(URL + 'auth/signup', {
+    const response = await fetch(URL + 'api/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ function App() {
 
 
   const handleLogin = async(user) => {
-    const response = await fetch(URL + 'auth/login', {
+    const response = await fetch(URL + 'api/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ function App() {
   }, [])
 
   //Reservation
-  const resURL = "http://localhost:4000/api/reservation/";
+  const resURL = URL + "api/reservation/";
 
   const [reservations, setReservations] = useState([]);  // Note the variable name change for clarity
 

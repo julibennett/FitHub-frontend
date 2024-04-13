@@ -15,10 +15,10 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const[user, setUser] = useState(null)
   const navigate = useNavigate()
-  const URL = 'http://localhost:4000/api/'
+  const URL = process.env.URL
 
   const handleSignUp = async(user) => {
-    const response = await fetch(URL + 'auth/signup', {
+    const response = await fetch(`${URL}auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ function App() {
   }
 
   const handleLogin = async(user) => {
-    const response = await fetch(URL + 'auth/login', {
+    const response = await fetch(`${URL}auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -79,8 +79,7 @@ function App() {
   }, [])
 
   //Reservation
-  const resURL = "http://localhost:4000/api/reservation/";
-
+  const resURL = `${URL}reservation/`
   const [reservations, setReservations] = useState([]);  // Note the variable name change for clarity
 
 //   const getReservations = async () => {

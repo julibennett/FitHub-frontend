@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useCallback } from "react"
 
-const Add = ({ user, createReservation, isLoggedIn }) => {
+const Add = ({ user, createReservation, isLoggedIn, URL }) => {
     const { id } = useParams()
     const navigate = useNavigate()
     const userId = localStorage.getItem("userId")
@@ -9,7 +9,7 @@ const Add = ({ user, createReservation, isLoggedIn }) => {
     const fetchClassDataAndAddReservation = useCallback(async () => {
         try {
             
-            const response = await fetch(`http://localhost:4000/api/class/${id}`)
+            const response = await fetch(`${URL}class/${id}`)
             const data = await response.json()
             
             if (response.ok) {
@@ -41,7 +41,7 @@ const Add = ({ user, createReservation, isLoggedIn }) => {
         <section>
             <div>
                 {isLoggedIn == true ?
-                    <input type="button" value="Reserve Class!" className='text-1xl font-bold text-center' onClick={fetchClassDataAndAddReservation}/>
+                    <input type="button" value="Reserve Class!" className='text-1xl font-bold text-center rounded p-1 bg-green-500 hover:bg-green-200' onClick={fetchClassDataAndAddReservation}/>
                 :
                     null
                 }

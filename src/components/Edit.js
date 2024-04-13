@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-const Edit = ({ reviewId, reviewUser, comments}) => {
+const Edit = ({ reviewId, reviewUser, comments, URL}) => {
 
     const navigate = useNavigate()
     const { id } = useParams()
@@ -17,7 +17,7 @@ const Edit = ({ reviewId, reviewUser, comments}) => {
 
     const updateReview = async (review) => {
         //console.log(review.comments)
-        await fetch(`http://localhost:4000/api/class/${id}/review/${reviewId}`, {
+        await fetch(`${URL}class/${id}/review/${reviewId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

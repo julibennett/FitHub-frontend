@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams, useNavigate } from "react-router-dom"
 
-const Delete = (reviewId) => {
+const Delete = (reviewId, URL) => {
     const navigate = useNavigate()
     const { id } = useParams()
 
@@ -12,7 +12,7 @@ const Delete = (reviewId) => {
 
     const deleteReview = async () => {
         console.log("deleting review")
-        await fetch(`http://localhost:4000/api/class/${id}/review/${reviewid}`, {
+        await fetch(`${URL}class/${id}/review/${reviewid}`, {
             method: "DELETE",
             headers: {
                 "authorization": token 

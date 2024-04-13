@@ -5,7 +5,7 @@ import Edit from '../components/Edit'
 import Delete from '../components/Delete'
 import Add from '../components/Add'
 
-const ClassShow = (props) => {
+const ClassShow = ({createReservation, isLoggedIn, URL}) => {
 
     const { id } = useParams();
     const navigate = useNavigate()
@@ -22,11 +22,11 @@ const ClassShow = (props) => {
     //Show Classes
     useEffect(() => {
       
-      const URL = `http://localhost:4000/api/class/${id}`;
+      const classShowURL = `${URL}class/${id}`;
   
       const fetchClassDetails = async () => {
         try {
-          const response = await fetch(URL)
+          const response = await fetch(classShowURL)
           const data = await response.json()
           setWorkoutClass(data.data)
         } catch (error) {
@@ -37,7 +37,7 @@ const ClassShow = (props) => {
       fetchClassDetails()
     }, [id])
 
-    const revURL = `http://localhost:4000/api/class/${id}`;
+    const revURL = `${URL}class/${id}`;
 
     useEffect(() => {
         const getReview = async() => {
@@ -56,7 +56,7 @@ const ClassShow = (props) => {
 
     //Review Fetch Calls
     const createReview = async (form) => {
-        const createdReview = await fetch(`http://localhost:4000/api/class/${id}/review`, {
+        const createdReview = await fetch(`${URL}class/${id}/review`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -112,7 +112,7 @@ const ClassShow = (props) => {
         <br></br>
 
         <h1 className='coolFont text-1xl font-bold text-center mb-4'>Add a Review!</h1>
-        { props.isLoggedIn == true ? 
+        {isLoggedIn == true ? 
           <form onSubmit={handleSubmit}>
             <label>
               <input className='border-double border-2 border-purple-300 rounded-lg px-1 py-1 mb-5'
@@ -132,12 +132,12 @@ const ClassShow = (props) => {
               </textarea>
             </label>
             <br></br>
-            <button type="submit" className='text-1xl font-bold text-center mb-8 text-purple-400' >Submit</button> 
+            <button type="submit" className='text-1xl font-bold text-center mb-8 text-black bg-purple-300 hover:bg-purple-500 rounded p-1' >Submit</button> 
           </form>
           : <p>Please login to write a review.</p>
         }
 
-        <Add createReservation={props.createReservation} isLoggedIn={props.isLoggedIn}/>
+        <Add createReservation={createReservation} isLoggedIn={isLoggedIn}/>
 
     </div>
   )

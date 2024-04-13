@@ -15,7 +15,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const[user, setUser] = useState(null)
   const navigate = useNavigate()
-  const URL = process.env.URL
+  const URL = process.env.REACT_APP_URL
 
   const handleSignUp = async(user) => {
     const response = await fetch(`${URL}auth/signup`, {

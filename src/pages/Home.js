@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Home = (props) => {
+const Home = ({URL}) => {
   const [classes, setClasses] = useState([])
-    const homeURL = `${process.env.URL}class`
+    const HomepageURL = 'http://localhost:4000/api/class'
 
     const fetchClasses = async () => {
       try{
-        const response = await fetch(homeURL)
+        const response = await fetch(HomepageURL)
         const data = await response.json()
         setClasses(data.data)
       }catch (error) {

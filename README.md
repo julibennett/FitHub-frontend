@@ -1,4 +1,4 @@
-# Project-3---FitHub
+# Project-3---FitHub🧘‍♀️🤸‍♂️💪🥊
 
 ## FitHub
 
@@ -39,7 +39,7 @@ https://trello.com/b/nPVrBjKJ/project-3
 
 - Add an administrator role. 
 
-## Author
+## Collaborators
 
 **Julianna Bennett** <br/>
 

@@ -29,9 +29,12 @@ Take care of all your class tracking needs with our new app, FITHUB! Manage your
 
 ## Click to view FitHub:
 
-https://fithub-frontend-8c32195b1449.herokuapp.com/class
+- [Live View](https://fithub-frontend-8c32195b1449.herokuapp.com/class 'Live View') 
+- [Frontend Repo](https://github.com/julibennett/FitHub-frontend 'FitHub Frontend')
+- [Backend Repo](https://github.com/julibennett/Project-3-Fitness-Tracker  'FitHub Backend')
 
-https://trello.com/b/nPVrBjKJ/project-3
+## Trello Board:
+- [Trello Board](https://trello.com/b/nPVrBjKJ/project-3 'Trello')
 
 ## Next Steps: 
 
@@ -43,7 +46,11 @@ https://trello.com/b/nPVrBjKJ/project-3
 
 **Julianna Bennett** <br/>
 
-**Bonnie Liu**
+- [LinkedIn](https://www.linkedin.com/in/julianna-bennett4/)
+
+**Bonnie Liu** <br/>
+
+- [LinkedIn](http://linkedin.com/in/bonnil1)
 
 
 ## Show Your Support!

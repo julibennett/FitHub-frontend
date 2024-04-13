@@ -10,7 +10,7 @@ const handleSubmit =async (e) => {
   let submission = await props.handleLogin(form)
 
   if(submission) {
-    setErrorMsg(submission.erorr)
+    setErrorMsg(submission.error)
   }
 }
 

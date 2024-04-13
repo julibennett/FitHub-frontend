@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Home = (props) => {
   const [classes, setClasses] = useState([])
-    const HomepageURL = `${props.URL}class`
+    const HomepageURL = `${props.URL}class`.replace(/\/\/+/g, '/')
 
     const fetchClasses = async () => {
       try{

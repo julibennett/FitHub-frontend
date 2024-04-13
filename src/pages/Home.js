@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Home = ({URL}) => {
+const Home = (props) => {
   const [classes, setClasses] = useState([])
-    const HomepageURL = 'http://localhost:4000/api/class'
+    const URL = process.env.URL + 'api/class'
 
     const fetchClasses = async () => {
       try{

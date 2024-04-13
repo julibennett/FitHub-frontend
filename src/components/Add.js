@@ -5,11 +5,13 @@ const Add = ({ user, createReservation, isLoggedIn }) => {
     const { id } = useParams()
     const navigate = useNavigate()
     const userId = localStorage.getItem("userId")
+
+    
     
     const fetchClassDataAndAddReservation = useCallback(async () => {
         try {
             
-            const response = await fetch(`http://localhost:4000/api/class/${id}`)
+            const response = await fetch(process.env.URL + `api/class/${id}`)
             const data = await response.json()
             
             if (response.ok) {

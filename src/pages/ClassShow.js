@@ -22,7 +22,7 @@ const ClassShow = ({createReservation, isLoggedIn}) => {
     //Show Classes
     useEffect(() => {
       
-      const URL = process.env.URL + `class/${id}`;
+      const URL = `http://localhost:4000/api/class/${id}`;
   
       const fetchClassDetails = async () => {
         try {
@@ -37,7 +37,7 @@ const ClassShow = ({createReservation, isLoggedIn}) => {
       fetchClassDetails()
     }, [id])
 
-    const revURL = process.env.URL + `class/${id}`
+    const revURL = `http://localhost:4000/api/class/${id}`
 
     useEffect(() => {
         const getReview = async() => {
@@ -56,7 +56,7 @@ const ClassShow = ({createReservation, isLoggedIn}) => {
 
     //Review Fetch Calls
     const createReview = async (form) => {
-        const createdReview = await fetch(process.env.URL + `class/${id}/review`, {
+        const createdReview = await fetch(`http://localhost:4000/api/class/${id}/review`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

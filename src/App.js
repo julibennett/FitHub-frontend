@@ -15,7 +15,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const[user, setUser] = useState(null)
   const navigate = useNavigate()
-  const baseURL = process.env.REACT_APP_URL
+  const baseURL = process.env.URL
 
   const handleSignUp = async(user) => {
     const response = await fetch(`${baseURL}/api/auth/signup`, {
@@ -81,7 +81,7 @@ function App() {
   }, [])
 
   //Reservation
-  const resURL = `${URL}api/reservation/`;
+  const resURL = `${baseURL}/api/reservation/`;
 
   const [reservations, setReservations] = useState([]);  // Note the variable name change for clarity
 

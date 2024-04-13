@@ -5,7 +5,7 @@ import Edit from '../components/Edit'
 import Delete from '../components/Delete'
 import Add from '../components/Add'
 
-const ClassShow = ({createReservation, isLoggedIn, URL}) => {
+const ClassShow = ({createReservation, isLoggedIn}) => {
 
     const { id } = useParams();
     const navigate = useNavigate()
@@ -22,11 +22,11 @@ const ClassShow = ({createReservation, isLoggedIn, URL}) => {
     //Show Classes
     useEffect(() => {
       
-      const classShowURL = `${URL}class/${id}`.replace(/\/\/+/g, '/')
+      const URL = `http://localhost:4000/api/class/${id}`;
   
       const fetchClassDetails = async () => {
         try {
-          const response = await fetch(classShowURL)
+          const response = await fetch(URL)
           const data = await response.json()
           setWorkoutClass(data.data)
         } catch (error) {
@@ -37,7 +37,7 @@ const ClassShow = ({createReservation, isLoggedIn, URL}) => {
       fetchClassDetails()
     }, [id])
 
-    const revURL = `${URL}class/${id}`;
+    const revURL = `http://localhost:4000/api/class/${id}`;
 
     useEffect(() => {
         const getReview = async() => {
@@ -56,7 +56,7 @@ const ClassShow = ({createReservation, isLoggedIn, URL}) => {
 
     //Review Fetch Calls
     const createReview = async (form) => {
-        const createdReview = await fetch(`${URL}class/${id}/review`, {
+        const createdReview = await fetch(`http://localhost:4000/api/class/${id}/review`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

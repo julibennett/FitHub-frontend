@@ -15,10 +15,10 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const[user, setUser] = useState(null)
   const navigate = useNavigate()
-  const URL = process.env.REACT_APP_URL
+  const URL = process.env.URL
 
   const handleSignUp = async(user) => {
-    const response = await fetch(`${URL}/auth/signup`, {
+    const response = await fetch(URL + 'auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -30,8 +30,9 @@ function App() {
     navigate('/login')
   }
 
+
   const handleLogin = async(user) => {
-    const response = await fetch(`${URL}/auth/login`, {
+    const response = await fetch(URL + 'auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -60,6 +61,7 @@ function App() {
     navigate("/class")  
 }
 
+
   const handleLogout = () => {
     console.log("in handle log")
     localStorage.removeItem("authToken")
@@ -79,7 +81,8 @@ function App() {
   }, [])
 
   //Reservation
-  const resURL = `${URL}/reservation/`.replace(/\/\/+/g, '/')
+  const resURL = `${URL}api/reservation/`;
+
   const [reservations, setReservations] = useState([]);  // Note the variable name change for clarity
 
 //   const getReservations = async () => {
@@ -122,6 +125,8 @@ const getReservations = async () => {
       console.error('Fetch error:', error.message);
   }
 };
+
+    
     
     // console.log(classData)
     const createReservation = async (reservationInfo) => {
@@ -154,7 +159,12 @@ const getReservations = async () => {
         console.error('Error in adding reservation:', error);
       }
     }
- 
+    
+  
+    
+
+
+
     const deleteReservation = async (id) => {
       const response = await fetch(`${resURL}${id}`, {
         method: "DELETE"
@@ -169,6 +179,8 @@ const getReservations = async () => {
       }
     }
     
+  
+
     useEffect(() => {
         getReservations()
     }, []);

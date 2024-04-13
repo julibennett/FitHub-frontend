@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useCallback } from "react"
 
-const Add = ({ user, createReservation, isLoggedIn, URL }) => {
+const Add = ({ user, createReservation, isLoggedIn }) => {
     const { id } = useParams()
     const navigate = useNavigate()
     const userId = localStorage.getItem("userId")
@@ -9,7 +9,7 @@ const Add = ({ user, createReservation, isLoggedIn, URL }) => {
     const fetchClassDataAndAddReservation = useCallback(async () => {
         try {
             
-            const response = await fetch(`${URL}class/${id}`)
+            const response = await fetch(`http://localhost:4000/api/class/${id}`)
             const data = await response.json()
             
             if (response.ok) {

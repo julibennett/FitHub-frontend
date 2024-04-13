@@ -18,7 +18,7 @@ function App() {
   const URL = process.env.REACT_APP_URL.replace(/\/\/+/g, '/')
 
   const handleSignUp = async(user) => {
-    const response = await fetch(`${URL}auth/signup`, {
+    const response = await fetch(`${URL}/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ function App() {
   }
 
   const handleLogin = async(user) => {
-    const response = await fetch(`${URL}auth/login`, {
+    const response = await fetch(`${URL}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

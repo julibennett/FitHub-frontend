@@ -17,7 +17,7 @@ const Edit = ({ reviewId, reviewUser, comments, URL}) => {
 
     const updateReview = async (review) => {
         //console.log(review.comments)
-        await fetch(process.env.URL + `api/class/${id}/review/${reviewId}`, {
+        await fetch(process.env.URL + `class/${id}/review/${reviewId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

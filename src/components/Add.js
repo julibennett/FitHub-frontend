@@ -11,7 +11,7 @@ const Add = ({ user, createReservation, isLoggedIn }) => {
     const fetchClassDataAndAddReservation = useCallback(async () => {
         try {
             
-            const response = await fetch(process.env.URL + `api/class/${id}`)
+            const response = await fetch(process.env.URL + `class/${id}`)
             const data = await response.json()
             
             if (response.ok) {
